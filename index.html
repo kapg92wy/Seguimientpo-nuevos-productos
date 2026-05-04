@@ -444,6 +444,8 @@
 let sb = null, products = [], modsMap = {}, devsMap = {};
 let currentFilter = 'todos', editingId = null, imgBase64 = null, detailId = null;
 let toastT;
+const SUPABASE_URL= 'https://dlpvkzmqwvslddeixeam.supabase.co/'
+const SUPABASE_KEY= 'sb_publishable_C56z7ISEA4OVd7kv0oZAkg_rcRbPN07'
 const BUCKET='product-images', TP='productos', TM='modificaciones', TD='devoluciones';
 const SL = { aceptado:'✅ Aceptado', rechazado:'❌ Rechazado', prueba:'🧪 En Prueba', revision:'🔍 En Revisión', devuelto:'↩️ Devuelto' };
 
@@ -458,9 +460,7 @@ function initSB(url,key) {
   try { sb=supabase.createClient(url,key); document.getElementById('config-overlay').style.display='none'; loadAll(); toast('✅ Conectado','success'); }
   catch(e) { toast('Error: '+e.message,'error'); }
 }
-const su=localStorage.getItem('sb_url'), sk=localStorage.getItem('sb_key');
-if (su&&sk) { document.getElementById('sb-url').value=su; document.getElementById('sb-key').value=sk; initSB(su,sk); }
-else { document.getElementById('loading').style.display='none'; document.getElementById('grid').style.display='grid'; }
+initSB(SUPABASE_URL, SUPABASE_KEY);
 
 /* ── LOAD ── */
 async function loadAll() {
